@@ -6,7 +6,7 @@ export default class LoginComponent extends Component {
 
   render(){
       if(this.props.isLoggedIn === true){
-          return (<Redirect to="/user" />);
+          return (<Redirect to="/app" />);
       }else{
           return (<div></div>);
       }

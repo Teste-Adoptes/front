@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SessionService from '../../../services/session';
 import LogoutComponent from '../logout';
+import {logout} from '../../../services/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,22 +25,19 @@ const useStyles = makeStyles((theme) => ({
 
 const MenuComponent = () => {
 
-  const [logout, isLogout] = useState([]);
+  const [out, isOut] = useState([]);
   const classes = useStyles();
 
   async function handleClick(e) {
-    isLogout(false);
-    const auth = {token: localStorage.getItem('@vireachavefinanceira/token')}
-    await SessionService.logout(auth)
+    isOut(false)
+    await SessionService.logout()
       .then(function (response) {
-        localStorage.removeItem('@vireachavefinanceira/token');
-        isLogout(true);
-        alert('Usuário deslogado do sistema!');
+        logout()
+        isOut(true)
+        alert('User logged out of the system')
       })
       .catch(function (error) {
-        //console.log(error);
-        localStorage.removeItem('@vireachavefinanceira/token');
-        isLogout(false);
+        isOut(false)
       });
   }
 
@@ -52,12 +50,12 @@ const MenuComponent = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              VireaChaveFinanceira
+              Adopets
             </Typography>
             <Button onClick={handleClick}>Logout</Button>
           </Toolbar>
         </AppBar>
-        <LogoutComponent isLogout={logout}/>
+        <LogoutComponent isLogout={out}/>
       </div>
     </Fragment>
   );

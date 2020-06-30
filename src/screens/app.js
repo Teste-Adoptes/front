@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
-import MenuComponent from '../../components/comomn/menu';
+import MenuComponent from '../components/comomn/menu';
 
 
-const HomeUserScreen = () => {
+const AppScreen = () => {
 
   return(
     <Fragment>
@@ -13,4 +13,4 @@ const HomeUserScreen = () => {
   );
 }
 
-export default HomeUserScreen;
+export default AppScreen;

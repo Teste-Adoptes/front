@@ -32,13 +32,14 @@ const HomeScreen = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              VireaChaveFinanceira
+              Adopets
             </Typography>
             <a href='/login'>
-              <Button >Login</Button>
+              <Button >Sign in</Button>
             </a>
           </Toolbar>
         </AppBar>
+        <p>Test developer Fullstack</p>
       </div>
     </Fragment>
   )

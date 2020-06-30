@@ -1,18 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Routes from './routes';
-import { BrowserRouter } from 'react-router-dom';
 
-const App = () => {
-
-  require('dotenv').config()
-
-  return(
-    <Fragment>
-      <BrowserRouter>
-        <Routes/>
-      </BrowserRouter>
-    </Fragment>
-  )
-}
-
+const App = () => <Routes />;
 export default App;

@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import LoginComponent from '../components/comomn/login/index';
-import CadastroComponent from '../components/comomn/cadastro/index';
-
+import RegisterComponent from '../components/comomn/register/index';
+import {login, logout} from '../services/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,47 +17,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginScreen = () => {
-
-  const [cpf, setCpf] = useState({});
-  const [password, setPassword] = useState({});
-  const [isLogin, setLogin] = useState({});
-  const [cadastro, isCadastro] = useState({});
+  const [email, setEmail] = useState({})
+  const [password, setPassword] = useState({})
+  const [isLogin, setLogin] = useState({})
+  const [isRegister, setRegister] = useState({})
 
   const classes = useStyles();
   
   async function handleClickEntrar(e) {
-    const data = {cpf: cpf, password: password}
+    const data = {email: email, password: password}
+    
     await SessionService.login(data)
       .then(function (response) {
-        localStorage.removeItem('@vireachavefinanceira/token');
-        localStorage.setItem('@vireachavefinanceira/token', response.data.token);
+        login(response.data.token, response.data.id)
         setLogin(true);
       })
       .catch(function (error) {
-        //console.log(error);
-        localStorage.removeItem('@vireachavefinanceira/token');
-        alert('Cpf ou senha inválidos!');
+        logout()
+        alert('Email or password incorretc!');
         setLogin(false);
       });
   }
 
-  function handleClickCadastrar(e){
-    isCadastro(true);
+  function handleClickRegister(e){
+    setRegister(true);
   }
 
   return(
     <Fragment>
       <form className={classes.root} noValidate autoComplete="off">
-        <TextField name="cpf" id="standard" label="Cpf" 
-          onChange={(event) => {setCpf(event.target.value)} } />
+        <TextField name="email" id="standard" label="E-mail" 
+          onChange={(event) => {setEmail(event.target.value)} } />
         <TextField name="password" id="standard-password-input" label="Senha" 
           type="password" onChange={(event) => {setPassword(event.target.value)}}
           />
-        <Button onClick={handleClickEntrar}>Entrar</Button>
-        <Button onClick={handleClickCadastrar}>Cadastrar</Button>
+        <Button onClick={handleClickEntrar}>Log in</Button>
+        <Button onClick={handleClickRegister}>Register</Button>
       </form>
       <LoginComponent isLoggedIn={isLogin}/>
-      <CadastroComponent isCadastro={cadastro} />
+      <RegisterComponent isRegister={isRegister} />
     </Fragment>
   )
 }
